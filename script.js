@@ -48,11 +48,8 @@ function addTask() {
 function displayTask(task) {
     const li = document.createElement('li');
     li.innerHTML = `
-        <input type="checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}">
-        <div>
-            <strong>${task.text}</strong> 
-            <em>(${task.category} - ${task.dueDate || 'No due date'})</em>
-        </div>
+        <input type="checkbox" class="complete-checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}">
+        <span>${task.text} (${task.category} - ${task.dueDate || 'No due date'})</span>
         <button class="delete-btn" data-id="${task.id}">Delete</button>
     `;
     li.classList.toggle('completed', task.completed);
@@ -72,7 +69,7 @@ function handleTaskActions(e) {
         const taskId = e.target.getAttribute('data-id');
         deleteTask(taskId);
         e.target.closest('li').remove();
-    } else if (e.target.type === 'checkbox') {
+    } else if (e.target.classList.contains('complete-checkbox')) {
         const taskId = e.target.getAttribute('data-id');
         toggleTaskCompletion(taskId, e.target.checked);
     }
