@@ -2,12 +2,11 @@
 body {
     background-color: #e3f2fd;
     font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .container {
@@ -21,7 +20,6 @@ body {
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
     color: #1976d2;
 }
 
@@ -34,87 +32,46 @@ h1 {
 #task-input, #category-select, #due-date {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ddd;
     border-radius: 6px;
 }
 
 #add-task-btn {
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #42a5f5;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#add-task-btn:hover {
-    background-color: #1e88e5;
 }
 
 .filter-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 15px;
 }
 
 .filter-btn {
-    background-color: #f1f1f1;
-    border: none;
     padding: 10px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.filter-btn:hover {
-    background-color: #bdbdbd;
 }
 
 ul {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 li {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background-color: #f9f9f9;
     padding: 10px;
     margin-top: 10px;
     border-radius: 6px;
-    animation: slideIn 0.3s ease-in-out;
 }
 
-li.completed {
+.completed {
     text-decoration: line-through;
-    color: #757575;
+    color: gray;
     background-color: #c8e6c9;
-}
-
-button.delete-btn {
-    background-color: #e57373;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button.delete-btn:hover {
-    background-color: #d32f2f;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
 }
