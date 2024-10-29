@@ -1,7 +1,7 @@
-/* General styles */
+/* General Styles */
 body {
-    background-color: #f5f5f5;
-    font-family: Arial, sans-serif;
+    background-color: #e3f2fd;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,66 +11,110 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 500px;
     background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
+    color: #1976d2;
 }
 
 .input-container {
     display: flex;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
-#task-input {
+#task-input, #category-select, #due-date {
     flex: 1;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
 }
 
 #add-task-btn {
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #42a5f5;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #add-task-btn:hover {
-    background-color: #218838;
+    background-color: #1e88e5;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.filter-btn {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #bdbdbd;
 }
 
 ul {
     list-style: none;
     padding: 0;
-    margin-top: 20px;
+    margin: 0;
 }
 
 li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    margin-top: 10px;
+    border-radius: 6px;
+    animation: slideIn 0.3s ease-in-out;
 }
 
-li button {
-    background-color: #dc3545;
+li.completed {
+    text-decoration: line-through;
+    color: #757575;
+    background-color: #c8e6c9;
+}
+
+button.delete-btn {
+    background-color: #e57373;
     border: none;
-    color: white;
     padding: 5px 10px;
-    border-radius: 4px;
+    border-radius: 6px;
+    color: white;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-li button:hover {
-    background-color: #c82333;
+button.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
 }
