@@ -2,6 +2,9 @@
 const taskInput = document.getElementById('task-input');
 const addTaskBtn = document.getElementById('add-task-btn');
 const taskList = document.getElementById('task-list');
+const categorySelect = document.getElementById('category-select');
+const dueDateInput = document.getElementById('due-date');
+const filterButtons = document.querySelectorAll('.filter-btn');
 
 // Load tasks from localStorage on page load
 document.addEventListener('DOMContentLoaded', loadTasks);
@@ -9,6 +12,9 @@ document.addEventListener('DOMContentLoaded', loadTasks);
 // Event Listeners
 addTaskBtn.addEventListener('click', addTask);
 taskList.addEventListener('click', handleTaskActions);
+filterButtons.forEach(btn =>
+    btn.addEventListener('click', filterTasks)
+);
 
 // Functions
 
@@ -19,12 +25,22 @@ function loadTasks() {
 
 function addTask() {
     const taskText = taskInput.value.trim();
+    const category = categorySelect.value;
+    const dueDate = dueDateInput.value;
+
     if (taskText === '') {
         alert('Please enter a task.');
         return;
     }
 
-    const task = { id: Date.now(), text: taskText };
+    const task = {
+        id: Date.now(),
+        text: taskText,
+        category,
+        dueDate,
+        completed: false
+    };
+
     displayTask(task);
     saveTask(task);
     taskInput.value = '';
@@ -32,9 +48,15 @@ function addTask() {
 
 function displayTask(task) {
     const li = document.createElement('li');
+    li.classList.toggle('completed', task.completed);
     li.innerHTML = `
-        <span contenteditable="true">${task.text}</span>
-        <button data-id="${task.id}">Delete</button>
+        <div>
+            <strong>${task.text}</strong> 
+            <em>(${task.category} - ${task.dueDate || 'No due date'})</em>
+        </div>
+        <div>
+            <button class="delete-btn" data-id="${task.id}">Delete</button>
+        </div>
     `;
     taskList.appendChild(li);
 }
@@ -46,12 +68,10 @@ function saveTask(task) {
 }
 
 function handleTaskActions(e) {
-    if (e.target.tagName === 'BUTTON') {
+    if (e.target.classList.contains('delete-btn')) {
         const taskId = e.target.getAttribute('data-id');
         deleteTask(taskId);
-        e.target.parentElement.remove();
-    } else if (e.target.tagName === 'SPAN') {
-        e.target.addEventListener('blur', () => updateTask(e.target));
+        e.target.closest('li').remove();
     }
 }
 
@@ -61,16 +81,17 @@ function deleteTask(id) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-function updateTask(span) {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const taskId = span.nextElementSibling.getAttribute('data-id');
-    const updatedText = span.textContent;
-
+function filterTasks(e) {
+    const filter = e.target.dataset.filter;
+    const tasks = taskList.querySelectorAll('li');
     tasks.forEach(task => {
-        if (task.id == taskId) {
-            task.text = updatedText;
+        const isCompleted = task.classList.contains('completed');
+        if (filter === 'all' ||
+            (filter === 'completed' && isCompleted) ||
+            (filter === 'pending' && !isCompleted)) {
+            task.style.display = 'flex';
+        } else {
+            task.style.display = 'none';
         }
     });
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
